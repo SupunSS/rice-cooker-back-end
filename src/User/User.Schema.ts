@@ -1,4 +1,4 @@
-// src/users/schemas/user.schema.ts
+// src/User/schemas/user.schema.ts
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
