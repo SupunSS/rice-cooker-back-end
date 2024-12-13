@@ -6,7 +6,7 @@ import { NotificationsModule } from './notifications/notifications.module';
 
 @Module({
   imports: [
-    MongooseModule.forRoot(process.env.MONGO_URI),
+    MongooseModule.forRoot('mongodb://localhost:27017/intelligent-cooker'),
     UsersModule,
     DevicesModule,
     NotificationsModule,
