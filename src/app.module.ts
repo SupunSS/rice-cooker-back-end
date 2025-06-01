@@ -4,6 +4,7 @@ import { UsersModule } from './User/users.module';
 import { DevicesModule } from './devices/devices.module';
 import { NotificationsModule } from './notifications/notifications.module';
 import { AuthModule } from './auth/auth.module';
+import { MqttModule } from './mqtt/mqtt.module';
 
 @Module({
   imports: [
@@ -11,7 +12,8 @@ import { AuthModule } from './auth/auth.module';
     UsersModule,
     DevicesModule,
     NotificationsModule,
-    AuthModule
+    AuthModule, // Import the Auth module
+    MqttModule, // Import the MQTT module
   ],
 })
 export class AppModule {}
