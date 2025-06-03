@@ -1,12 +1,12 @@
 import { Controller, Post, Body } from '@nestjs/common';
 import { DevicesService } from './devices.service';
-import { MqttService } from '../mqtt/mqtt.service'; //  Import MQTT Service
+import { MqttService } from '../mqtt/mqtt.service';
 
 @Controller('devices')
 export class DevicesController {
   constructor(
     private readonly devicesService: DevicesService,
-    private readonly mqttService: MqttService, // Inject MqttService
+    private readonly mqttService: MqttService,
   ) {}
 
   @Post('data')
