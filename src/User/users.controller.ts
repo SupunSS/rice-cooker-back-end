@@ -75,7 +75,10 @@ export class UsersController {
   @UseGuards(JwtAuthGuard)
   @Put('profile')
   async updateProfile(@Request() req, @Body() body: UpdateProfileDto) {
-    const updated = await this.usersService.updateProfile(req.user.userId, body);
+    const updated = await this.usersService.updateProfile(
+      req.user.userId,
+      body,
+    );
     return {
       message: 'Profile updated successfully',
       user: {
@@ -89,32 +92,35 @@ export class UsersController {
   }
 
   // UPLOAD PROFILE PHOTO
- @UseGuards(JwtAuthGuard)
-@Post('profile/upload-photo')
-@UseInterceptors(
-  FileInterceptor('file', {
-    storage: diskStorage({
-      destination: './uploads/profile-photos',
-      filename: (req, file, cb) => {
-        const user = req.user as RequestUser; // ✅ typed correctly
-        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
-        const ext = extname(file.originalname);
-        cb(null, `${user.userId}-${uniqueSuffix}${ext}`);
-      },
+  @UseGuards(JwtAuthGuard)
+  @Post('profile/upload-photo')
+  @UseInterceptors(
+    FileInterceptor('file', {
+      storage: diskStorage({
+        destination: './uploads/profile-photos',
+        filename: (req, file, cb) => {
+          const user = req.user as RequestUser;
+          const uniqueSuffix =
+            Date.now() + '-' + Math.round(Math.random() * 1e9);
+          const ext = extname(file.originalname);
+          cb(null, `${user.userId}-${uniqueSuffix}${ext}`);
+        },
+      }),
     }),
-  }),
-)
-async uploadProfilePhoto(
-  @Request() req: { user: RequestUser },
-  @UploadedFile() file: Express.Multer.File,
-) {
-  const imageUrl = `http://localhost:3000/profile-photos/${file.filename}`;
+  )
+  async uploadProfilePhoto(
+    @Request() req: { user: RequestUser },
+    @UploadedFile() file: Express.Multer.File,
+  ) {
+    const imageUrl = `http://localhost:3000/profile-photos/${file.filename}`;
 
-  await this.usersService.updateProfile(req.user.userId, { profileImage: imageUrl });
+    await this.usersService.updateProfile(req.user.userId, {
+      profileImage: imageUrl,
+    });
 
-  return {
-    message: 'Profile photo uploaded successfully',
-    imageUrl,
-  };
-}
+    return {
+      message: 'Profile photo uploaded successfully',
+      imageUrl,
+    };
+  }
 }

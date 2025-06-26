@@ -12,8 +12,8 @@ import { MqttModule } from './mqtt/mqtt.module';
     UsersModule,
     DevicesModule,
     NotificationsModule,
-    AuthModule, // Import the Auth module
-    MqttModule, // Import the MQTT module
+    AuthModule,
+    MqttModule,
   ],
 })
 export class AppModule {}
