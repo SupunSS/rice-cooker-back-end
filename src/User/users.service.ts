@@ -11,7 +11,7 @@ import { User } from './schemas/user.schema';
 import { CreateUserDto } from './dto/create-user.dto';
 import { LoginDto } from './dto/login.dto';
 import { UpdateProfileDto } from './dto/update-profile.dto';
-import { AuthService } from '../Auth-file/auth.service';
+import { AuthService } from '../auth/auth.service';
 
 @Injectable()
 export class UsersService {
