@@ -16,7 +16,7 @@ import { AuthService } from '../auth/auth.service';
 @Injectable()
 export class UsersService {
   constructor(
-     @InjectModel(User.name) private readonly userModel: Model<User>,
+    @InjectModel(User.name) private readonly userModel: Model<User>,
     private readonly authService: AuthService,
   ) {}
 
@@ -42,22 +42,22 @@ export class UsersService {
 
   // LOGIN USER
   async login(loginDto: LoginDto): Promise<{ user: User; token: string }> {
-  const { email, password } = loginDto;
+    const { email, password } = loginDto;
 
-  const user = await this.userModel.findOne({ email });
-  if (!user) {
-    throw new UnauthorizedException('Invalid email or password');
+    const user = await this.userModel.findOne({ email });
+    if (!user) {
+      throw new UnauthorizedException('Invalid email or password');
+    }
+
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
+      throw new UnauthorizedException('Invalid email or password');
+    }
+
+    const token = this.authService.generateToken(user);
+
+    return { user, token: token.access_token };
   }
-
-  const isPasswordValid = await bcrypt.compare(password, user.password);
-  if (!isPasswordValid) {
-    throw new UnauthorizedException('Invalid email or password');
-  }
-
-  const token = this.authService.generateToken(user);
-
-  return { user, token: token.access_token };
-}
 
   // FIND BY ID (used in getProfile)
   async findById(userId: string): Promise<User> {
@@ -67,7 +67,10 @@ export class UsersService {
   }
 
   // UPDATE PROFILE
-  async updateProfile(userId: string, updates: UpdateProfileDto): Promise<User> {
+  async updateProfile(
+    userId: string,
+    updates: UpdateProfileDto,
+  ): Promise<User> {
     const updateData: Partial<User> = { ...updates };
 
     // If password is being updated, hash it
