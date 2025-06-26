@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { UsersService } from './users.service';
 import { getModelToken } from '@nestjs/mongoose';
 import { User } from './schemas/user.schema';
-import { AuthService } from '../auth/auth.service';
+import { AuthService } from '../Auth-file/auth.service';
 import * as bcrypt from 'bcrypt';
 import {
   ConflictException,
