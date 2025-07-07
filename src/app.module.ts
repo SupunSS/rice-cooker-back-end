@@ -6,16 +6,24 @@ import { DevicesModule } from './devices/devices.module';
 import { NotificationsModule } from './notifications/notifications.module';
 import { AuthModule } from './auth/auth.module';
 import { MqttModule } from './mqtt/mqtt.module';
+import { PredictctionModule } from './prediction/prediction.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot(),
-    MongooseModule.forRoot(process.env.MONGODB_URI),
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
+
+    MongooseModule.forRoot(process.env.MONGODB_URI, {
+      dbName: 'intelligent-cooker',
+    }),
+
     UsersModule,
     DevicesModule,
     NotificationsModule,
     AuthModule,
     MqttModule,
+    PredictctionModule,
   ],
 })
 export class AppModule {}

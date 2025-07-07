@@ -29,6 +29,7 @@
     "@nestjs/platform-express": "^10.4.17",
     "@nestjs/platform-socket.io": "^10.4.15",
     "@nestjs/websockets": "^10.4.15",
+    "axios": "^1.10.0",
     "bcrypt": "^6.0.0",
     "class-validator": "^0.14.2",
     "dotenv": "^16.4.7",
