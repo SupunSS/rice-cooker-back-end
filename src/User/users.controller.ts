@@ -8,6 +8,7 @@ import {
   UseGuards,
   UploadedFile,
   UseInterceptors,
+  BadRequestException,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -112,6 +113,10 @@ export class UsersController {
     @Request() req: { user: RequestUser },
     @UploadedFile() file: Express.Multer.File,
   ) {
+    if (!file) {
+      throw new BadRequestException('No file uploaded');
+    }
+
     const imageUrl = `http://localhost:3000/profile-photos/${file.filename}`;
 
     await this.usersService.updateProfile(req.user.userId, {

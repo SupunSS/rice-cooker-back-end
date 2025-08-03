@@ -24,7 +24,6 @@ export class PredictionService {
         throw new Error(`Invalid value for '${key}': ${value}`);
       }
     }
-
     try {
       const response = await axios.post(
         `${predictionBackendUrl}/predict`,
@@ -35,7 +34,6 @@ export class PredictionService {
           },
         },
       );
-
       return response.data;
     } catch (error) {
       if (axios.isAxiosError(error)) {
@@ -44,7 +42,6 @@ export class PredictionService {
           `Prediction failed: ${error.response?.data?.detail || 'Unknown error'}`,
         );
       }
-
       throw error;
     }
   }
